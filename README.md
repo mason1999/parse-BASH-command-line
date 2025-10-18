@@ -6,7 +6,7 @@ This repository details the somewhat automated way in which I  have created help
     - `map_long_to_short`: This is an associative array which maps long options to short options (e.g `--aye` => `-a`).
     - `map_short_type`: This is an associative array which maps short options to a "type". In the current implementation the current types I support are "k" and "v". 
         - `"v" type`: This means that the short option **requires** a value. This is similar in concept to getopts when you are specifying the option string and you must put a ":" after the character (e.g `"a:b:c:"`).
-        - `"k" type`: This means that the short option **is only** a key. In other words, it functions as a true/false switch.
+        - `"k" type`: This means that the short option **is only** a key. In other words, it functions as a true/false switch. This is similar in concept to getopts when you are specifying the option string and you don't put a ":' after the character (e.g "d")
     - `map_runtime`: This is an associative array which picks up the options we inputted on the command line and the corresponding values for those options. It does this as we run the script (so I thought a fitting name was "runtime").
     - `ARGC`: This is the number of command line arguments which was entered. for example:
         - Entering: `-a a_val -b b_val -c "cee val" -d` would mean that `ARGC` equals 7
@@ -28,7 +28,7 @@ This repository details the somewhat automated way in which I  have created help
     print_array "map_runtime"
     echo $1
     ```
-    You can try running this with the example `-a "short_a" --bee "long bee" --cee "long c" -d -- "hello world"
+    You can try running this with the example `-a "short_a" --bee "long bee" --cee "long c" -d -- "hello world"`
 
 ## Usage
 To use the repository by entering quoted positional paramters to the init.sh in the following form: `<optional long parameter>:<required short parameter>:<k or v>`. For example:
@@ -44,4 +44,4 @@ This create the `parse-command-line.sh` file with the following meanings:
 1. `--dee or -d` is a switch
 1. `-e` does not have a long form but requires a value
 
-Generally It might be easier to directly call the maps which are pre-configured for you like in the example `main.sh` above. However, I'm not going to stop you from directly copying the content of the `parse-command-line.sh` into your script! Up to you how you want to use this code.
+Generally It might be easier to directly call the maps which are pre-configured for you like in the example `main.sh` above. However, I'm not going to stop you from directly copying the content of the `parse-command-line.sh` into your script 😀! Up to you how you want to use this code.
