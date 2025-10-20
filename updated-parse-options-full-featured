@@ -1,0 +1,66 @@
+#! /usr/bin/bash
+
+args=""
+
+for x in "$@"; do
+  args="$args${x}\""
+done
+
+args=${args//=/\"}
+args=${args%%\"}
+IFS=$'"'
+set -- $args
+
+while [[ "${1}" != '' ]]; do
+  case $1 in 
+    --aye|-a) a_value=$2; shift; shift;;
+    --bee|-b) b_value=$2; shift; shift;;
+    --cee|-c) c_value=$2; shift; shift;;
+    --dee|-d) d_value=true; shift;;
+    --eee|-e) e_value=true; shift;;
+    --eff|-f) f_value=$2; shift; shift;;
+    --gee|-g) g_value=true; shift;;
+    --hhh|-h) h_value=true; shift;;
+    --iii|-i) i_value=$2; shift; shift;;
+    -[a-zA-Z]*)
+      opstring=${1##-}
+      for (( i = 0; i < ${#opstring}; i++ )); do
+        # char="-${opstring:i:1}"
+        if (( $i == ${#opstring} - 1 )); then
+          case "-${opstring:i:1}" in 
+            -d) echo "entered d"; d_value=true;;
+            -e) echo "entered e"; e_value=true;;
+            -g) echo "entered g"; g_value=true;;
+            -h) echo "entered h"; h_value=true;;
+
+            -a) echo "entered a"; a_value=$2; shift;;
+            -b) echo "entered b"; b_value=$2; shift;;
+            -c) echo "entered c"; c_value=$2; shift;;
+            -f) echo "entered f"; f_value=$2; shift;;
+            -i) echo "entered i"; i_value=$2; shift;;
+          esac
+          shift;
+          break
+        fi
+
+        case "-${opstring:i:1}" in 
+          -d) echo "entered d"; d_value=true; continue;;
+          -e) echo "entered e"; e_value=true; continue;;
+          -g) echo "entered g"; g_value=true; continue;;
+          -h) echo "entered h"; h_value=true; continue;;
+        esac
+
+      done
+    ;;
+  esac
+done
+
+echo "a value is: $a_value"
+echo "b value is: $b_value"
+echo "c value is: $c_value"
+echo "d value is: $d_value"
+echo "e value is: $e_value"
+echo "f value is: $f_value"
+echo "g value is: $g_value"
+echo "h value is: $h_value"
+echo "i value is: $i_value"
